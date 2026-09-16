@@ -1,0 +1,9 @@
+C:\Users\1nncore\Desktop\SCPPlugin\obj\Debug\PropHuntMiniGame.csproj.AssemblyReference.cache
+C:\Users\1nncore\Desktop\SCPPlugin\obj\Debug\PropHuntMiniGame.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\1nncore\Desktop\SCPPlugin\obj\Debug\PropHuntMiniGame.AssemblyInfoInputs.cache
+C:\Users\1nncore\Desktop\SCPPlugin\obj\Debug\PropHuntMiniGame.AssemblyInfo.cs
+C:\Users\1nncore\Desktop\SCPPlugin\obj\Debug\PropHuntMiniGame.csproj.CoreCompileInputs.cache
+C:\Users\1nncore\Desktop\SCPPlugin\bin\Debug\PropHuntMiniGame.dll
+C:\Users\1nncore\Desktop\SCPPlugin\bin\Debug\PropHuntMiniGame.pdb
+C:\Users\1nncore\Desktop\SCPPlugin\obj\Debug\PropHuntMiniGame.dll
+C:\Users\1nncore\Desktop\SCPPlugin\obj\Debug\PropHuntMiniGame.pdb

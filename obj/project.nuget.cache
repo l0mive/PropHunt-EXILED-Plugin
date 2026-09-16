@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "P3nB4q8/gZM=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\1nncore\\Desktop\\SCPPlugin\\PropHuntMiniGame.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\1nncore\\.nuget\\packages\\exiled.dev.references\\1.0.4\\exiled.dev.references.1.0.4.nupkg.sha512",
+    "C:\\Users\\1nncore\\.nuget\\packages\\exmod.exiled\\9.14.2\\exmod.exiled.9.14.2.nupkg.sha512"
+  ],
+  "logs": []
+}
