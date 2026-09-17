@@ -106,7 +106,3 @@ dotnet build .\PropHuntMiniGame.csproj
 ```
 
 Output: `bin/Debug/PropHuntMiniGame.dll`.
-
-## License
-
-Add the repository's chosen license here when one is selected.
