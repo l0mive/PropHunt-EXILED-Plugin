@@ -1,6 +1,6 @@
 # PropHunt MiniGame
 
-[🇬🇧 English](README.md) · [🇷🇺 Русский](README.ru.md) · [🇺🇦 Українська](README.ua.md)
+[🇬🇧 English](README.md) · [🇷🇺 Русский](README.ru.md) · [🇺🇦 Українська](README.uk.md)
 
 Configurable PropHunt minigame plugin for **SCP: Secret Laboratory** servers using **EXILED 9.14.2+**.
 
@@ -90,16 +90,11 @@ actual penalty = penaltypercent / √(number of alive NPCs)
 
 When every hunter is eliminated, hiders win. When every hider is eliminated or the timer expires, the game ends.
 
-## GitHub Releases
+## Downloads
 
-Each release should contain these assets:
+Download **`PropHuntMiniGame.dll`** from the latest Release and copy it to your server's `EXILED/Plugins` directory.
 
-| Asset | Purpose |
-|---|---|
-| `PropHuntMiniGame.dll` | Ready-to-install compiled plugin; copy to `EXILED/Plugins` |
-| `PropHuntMiniGame-Source.zip` | Uncompiled open-source project for developers |
-
-The source archive should include the `.cs` files, `.csproj`, `README*`, and project configuration, but does not need `bin/` or `obj/` build output.
+**`PropHuntMiniGame-Source.zip`** contains the uncompiled open-source project for developers who want to inspect or build the plugin.
 
 ## Build from source
 
