@@ -6,10 +6,23 @@ Configurable PropHunt minigame plugin for **SCP: Secret Laboratory** servers usi
 
 > **GitHub description:** A configurable SCP: Secret Laboratory PropHunt minigame with EXILED NPCs, solo testing, smooth bot behaviour, multilingual messages, runtime settings, and hider-versus-hunter win conditions.
 
+## Plugin Information
+
+- **Game:** SCP: Secret Laboratory
+- **Plugin version:** 0.2.1
+- **EXILED:** 9.14.2+
+- **Source code:** [github.com/l0mive/PropHunt-EXILED-Plugin](https://github.com/l0mive/PropHunt-EXILED-Plugin)
+- **Latest download:** [GitHub Releases](https://github.com/l0mive/PropHunt-EXILED-Plugin/releases/latest)
+- **Dependencies:** EXILED 9.14.2+ and .NET Framework 4.8
+
+Server owners are responsible for checking that their use of this plugin complies with the [Community Server Guidelines](https://scpslgame.com/CSG.pdf).
+
 ## Features
 
 - One random hunter versus real-player hiders disguised among NPCs.
 - `test_prophunt` with an exact NPC count, including one-player servers.
+- Arena selection at game start: `049`, `surface_gate`, or `here`.
+- Persistent runtime settings saved directly to the EXILED server configuration.
 - Smooth NPC turning, acceleration, wandering, following, pauses, obstacle avoidance, separation, and random jumps.
 - NPC-hit damage is a percentage of hunter max HP and decreases as the NPC count increases.
 - Hunters move to Spectator when their HP reaches zero; hiders win when all hunters are eliminated.
@@ -39,25 +52,25 @@ Commands are registered for Remote Admin and the game console.
 
 | Command | Description |
 |---|---|
-| `prophunt` | Start a regular game; requires at least two alive non-NPC players |
-| `prophunt start` | Same as `prophunt` |
+| `prophunt` | Show command usage |
+| `prophunt start <arena>` | Start a regular game in `049`, `surface_gate`, or `here`; requires at least two alive non-NPC players |
 | `prophunt stop` | Stop the game, remove NPCs, unlock the arena, and clean up |
 | `prophunt settings` | Show current runtime settings |
-| `prophunt settings <name> <value>` | Change a setting for the current plugin session |
-| `test_prophunt <npc_count>` | Start a test with exactly the requested NPC count |
+| `prophunt settings <name> <value>` | Change and save a setting to the server configuration |
+| `test_prophunt <npc_count> <arena>` | Start a test with exactly the requested NPC count in `049`, `surface_gate`, or `here` |
 
 Aliases: `startPropHunt`, `ttstart`, `testprophunt`.
 
 ```text
-prophunt
+prophunt start 049
 prophunt stop
 prophunt settings language english
 prophunt settings dummies 5
 prophunt settings penaltypercent 30
-test_prophunt 19
+test_prophunt 19 surface_gate
 ```
 
-`test_prophunt 19` works with one alive player and is limited by `maxdummies`.
+`test_prophunt 19 surface_gate` works with one alive player and is limited by `maxdummies`.
 
 ## Runtime settings
 
@@ -75,10 +88,12 @@ test_prophunt 19
 | `pausechance` | Chance of a short pause (`0`–`1`) | `0.30` |
 | `pausemin` / `pausemax` | Random pause duration range | `0.45` / `1.35` |
 | `jumpchance` | Chance to jump when changing behaviour (`0`–`1`) | `0.12` |
-| `radius` | Arena wandering radius | `28` |
+| `radius` | Arena wandering radius | `18` |
 | `debug` | Enable debug logging | `false` |
 
-`IsEnabled`, `UniformNickname`, and `UniformCustomInfo` are configured in the generated EXILED config file. Console changes are runtime-only unless copied to that file.
+Select the arena only when starting a game: `prophunt start <arena>` or `test_prophunt <npc_count> <arena>`. The `049` preset uses a validated floor position beside the SCP-049 Armory door, away from the containment-gate collider; every participant and NPC position is checked for floor clearance and the correct floor level before teleporting. Its containment doors, including the 049 and new 173 gates, are opened and locked; the 049 lift stays closed and locked. The `surface_gate` preset starts on the surface side of the Surface Gate. Surface doors are opened and locked, while Gate A and Gate B lifts remain locked. Arena doors are prepared one second before any player or NPC is teleported. The `here` option uses the position of the alive player who starts the game.
+
+`IsEnabled`, `UniformNickname`, and `UniformCustomInfo` are configured in the generated EXILED config file. Every successful `prophunt settings <name> <value>` change is also saved there and remains after a server restart. The `here` arena must be started by an alive in-game player, not the server console.
 
 ## Rules and damage
 
@@ -106,3 +121,7 @@ dotnet build .\PropHuntMiniGame.csproj
 ```
 
 Output: `bin/Debug/PropHuntMiniGame.dll`.
+
+## License
+
+Add the repository's chosen license here when one is selected.
