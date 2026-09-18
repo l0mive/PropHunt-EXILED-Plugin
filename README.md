@@ -1,6 +1,6 @@
 # PropHunt MiniGame
 
-[🇬🇧 English](README.md) · [🇷🇺 Русский](README.ru.md) · [🇺🇦 Українська](README.ua.md)
+[🇬🇧 English](README.md) · [🇷🇺 Русский](README.ru.md) · [🇺🇦 Українська](README.uk.md)
 
 Configurable PropHunt minigame plugin for **SCP: Secret Laboratory** servers using **EXILED 9.14.2+**.
 

@@ -61,7 +61,7 @@ namespace PropHuntMiniGame
         public float JumpChance { get; set; } = 0.12f;
 
         [Description("How far NPCs may wander from the arena center.")]
-        public float ArenaRadius { get; set; } = 28f;
+        public float ArenaRadius { get; set; } = 18f;
 
         public void Validate()
         {
@@ -91,6 +91,27 @@ namespace PropHuntMiniGame
         private static float ClampPercent(float value)
         {
             return Math.Max(0f, Math.Min(100f, value));
+        }
+
+        public static bool TryNormalizeArena(string value, out string arena)
+        {
+            switch (value?.Trim().ToLowerInvariant())
+            {
+                case "049":
+                case "scp049":
+                    arena = "049";
+                    return true;
+                case "surface_gate":
+                case "surface":
+                    arena = "surface_gate";
+                    return true;
+                case "here":
+                    arena = "here";
+                    return true;
+                default:
+                    arena = null;
+                    return false;
+            }
         }
     }
 }

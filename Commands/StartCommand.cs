@@ -2,6 +2,7 @@ namespace PropHuntMiniGame.Commands
 {
     using System;
     using CommandSystem;
+    using Exiled.API.Features;
     using Exiled.Permissions.Extensions;
 
     [CommandHandler(typeof(RemoteAdminCommandHandler))]
@@ -32,12 +33,13 @@ namespace PropHuntMiniGame.Commands
 
             if (arguments.Count == 0)
             {
-                return Start(out response);
+                response = Translation.Get("prophunt_usage");
+                return false;
             }
 
             string subcommand = GetArgument(arguments, 0).ToLowerInvariant();
             if (subcommand == "start")
-                return Start(out response);
+                return Start(arguments, sender, out response);
 
             if (subcommand == "stop")
             {
@@ -55,11 +57,11 @@ namespace PropHuntMiniGame.Commands
             if (subcommand == "settings")
                 return Configure(arguments, out response);
 
-            response = Translation.Get("command_usage");
+            response = Translation.Get("prophunt_usage");
             return false;
         }
 
-        private static bool Start(out string response)
+        private static bool Start(ArraySegment<string> arguments, ICommandSender sender, out string response)
         {
             if (Plugin.Instance.GameHandler.IsActive)
             {
@@ -67,9 +69,21 @@ namespace PropHuntMiniGame.Commands
                 return false;
             }
 
-            if (!Plugin.Instance.GameHandler.StartGame())
+            if (arguments.Count != 2)
             {
-                response = Translation.Get("start_failed");
+                response = Translation.Get("start_usage");
+                return false;
+            }
+
+            if (!Config.TryNormalizeArena(GetArgument(arguments, 1), out string arena))
+            {
+                response = Translation.Get("arena_invalid");
+                return false;
+            }
+
+            if (!Plugin.Instance.GameHandler.StartGame(arena, Player.Get(sender)))
+            {
+                response = Plugin.Instance.GameHandler.LastStartError ?? Translation.Get("start_failed");
                 return false;
             }
 
@@ -105,8 +119,7 @@ namespace PropHuntMiniGame.Commands
                 }
 
                 config.Language = language;
-                response = Translation.Get("language_updated", Translation.GetLanguageName(language));
-                return true;
+                return SaveSetting(name, out response);
             }
 
             if (name == "dummies" && int.TryParse(value, out int dummies))
@@ -146,7 +159,20 @@ namespace PropHuntMiniGame.Commands
             }
 
             config.Validate();
-            response = Translation.Get("setting_updated", name);
+            return SaveSetting(name, out response);
+        }
+
+        private static bool SaveSetting(string name, out string response)
+        {
+            Plugin.Instance.Config.Validate();
+
+            if (!Plugin.Instance.SaveSettings())
+            {
+                response = Translation.Get("settings_save_failed");
+                return false;
+            }
+
+            response = Translation.Get("setting_saved", name);
             return true;
         }
 

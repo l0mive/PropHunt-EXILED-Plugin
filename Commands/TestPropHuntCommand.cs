@@ -2,6 +2,7 @@ namespace PropHuntMiniGame.Commands
 {
     using System;
     using CommandSystem;
+    using Exiled.API.Features;
     using Exiled.Permissions.Extensions;
 
     [CommandHandler(typeof(RemoteAdminCommandHandler))]
@@ -35,15 +36,21 @@ namespace PropHuntMiniGame.Commands
             }
 
             int maxDummies = Plugin.Instance.Config.MaxDummies;
-            if (arguments.Count != 1 || !int.TryParse(GetArgument(arguments, 0), out int dummyCount) || dummyCount < 1 || dummyCount > maxDummies)
+            if (arguments.Count != 2 || !int.TryParse(GetArgument(arguments, 0), out int dummyCount) || dummyCount < 1 || dummyCount > maxDummies)
             {
-                response = Translation.Get("test_usage", maxDummies);
+                response = Translation.Get("test_usage_with_arena", maxDummies);
                 return false;
             }
 
-            if (!Plugin.Instance.GameHandler.StartTest(dummyCount))
+            if (!Config.TryNormalizeArena(GetArgument(arguments, 1), out string arena))
             {
-                response = Translation.Get("test_failed");
+                response = Translation.Get("arena_invalid");
+                return false;
+            }
+
+            if (!Plugin.Instance.GameHandler.StartTest(dummyCount, arena, Player.Get(sender)))
+            {
+                response = Plugin.Instance.GameHandler.LastStartError ?? Translation.Get("test_failed");
                 return false;
             }
 
